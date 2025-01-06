@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="main.css" />
+    <script>
+      function loadHomePage(type) {
+        const homePageUrl = "index.html"; // Replace with your home page URL
+        const newWindow = window.open("about:blank", "_blank");
+        newWindow.document.write(`
+                <!DOCTYPE html>
+                <html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>${type}</title>
+                    <link rel="icon" type="image/x-icon" href="/images/canvasico.ico">
+                    <style>
+                        body { margin: 0; padding: 0; }
+                        iframe { width: 100vw; height: 100vh; border: none; }
+                    </style>
+                </head>
+                <body>
+                    <iframe src="${homePageUrl}"></iframe>
+                </body>
+                </html>
+            `);
+        newWindow.document.close();
+      }
+    </script>
+  </head>
+  <body>
+    <nav>
+      <img src="images/logo.gif" alt="logo" />
+      <h1 style="text-align: center">SETTINGS</h1>
+      <a style="margin: 10px" href="index.html">BACK</a>
+    </nav>
+    <div>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <hr />
+      <button
+        onclick="loadHomePage('Canvas')"
+        style="
+          background-color: rgba(255, 255, 255, 0.034);
+          border: none;
+          color: white;
+          padding: 20px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+          font-size: 16px;
+          margin: 4px 2px;
+        "
+      >
+        Cloak mode (CANVAS)
+      </button>
+      <hr />
+    </div>
+  </body>
+</html>

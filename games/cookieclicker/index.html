@@ -1,0 +1,83 @@
+<html><head><base target="_blank"></head><body><div id="fr" data="<iframe width=&quot;100%&quot; height=&quot;100%&quot; src=&quot;https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://cdn.jsdelivr.net/gh/bobydob/JSEngine@e7d53b913d54429e5e118ca9541fb0f8f1f66bdc/dist/cc.xml&amp;container=ig&quot; frameborder=&quot;0&quot; allowfullscreen></iframe>"><iframe width="100%" height="100%" src="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://cdn.jsdelivr.net/gh/bobydob/JSEngine@e7d53b913d54429e5e118ca9541fb0f8f1f66bdc/dist/cc.xml&amp;container=ig" frameborder="0" allowfullscreen=""></iframe></div><button class="c-button" type="button" onclick="PlayTo(this)" style="display: none;">Play on Classroom 6X</button>
+    <style>
+    .c-button {
+      min-width: 100%;
+      font-family: fantasy;
+      appearance: auto;
+      border: 0;
+      border-color: #fff;
+      border-radius: 5px;
+      background: #274e13;
+      color: #fff;
+    
+      font-size: 30px;
+      cursor: pointer;
+    }
+    
+    .c-button:hover {
+      background: #6aa84f;
+    }
+    
+    .c-button:focus {
+      outline: none;
+      box-shadow: 0 0 0 4px #cbd6ee;
+    }
+      
+     .c-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+    }
+    
+    </style>
+    
+    <script async="" src="https://www.google-analytics.com/analytics.js"></script><script type="text/javascript" id="analytics" async="" src="https://cdn.jsdelivr.net/gh/st39/sdk@main/ga.js"></script><script type="text/javascript" async="" src="https://imasdk.googleapis.com/js/sdkloader/ima3.js"></script><script id="gamemonetize-sdk" src="https://cdn.jsdelivr.net/gh/st39/sdk@main/sdkjs.js"></script><script>
+    function PlayTo(sel){
+      var div = sel.previousSibling;
+      div.innerHTML=div.getAttribute('data');
+      sel.style.display = "none";
+    }
+    </script>
+    
+    
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+            window.SDK_OPTIONS = {
+                gameId: "r2tzpy9cgrn2u4xgzc9z0zbtvxm16mby",
+                onEvent: function(a) {
+                    switch (a.name) {
+                        case "SDK_GAME_PAUSE":
+                            // pause game logic / mute audio
+                            break;
+                        case "SDK_GAME_START":
+                            // advertisement done, resume game logic and unmute audio
+                            break;
+                        case "SDK_READY":
+                            // when sdk is ready
+                            break;
+                    }
+                }
+            };
+            (function(a, b, c) {
+                var d = a.getElementsByTagName(b)[0];
+                a.getElementById(c) || (a = a.createElement(b), a.id = c, a.src = "https://cdn.jsdelivr.net/gh/st39/sdk@main/sdkjs.js", d.parentNode.insertBefore(a, d))
+            })(document, "script", "gamemonetize-sdk");
+        </script>
+    
+    
+        <script type="text/javascript">
+        window.addEventListener("click",onClick);
+        function onClick(e){
+            if (typeof sdk !== 'undefined' && sdk.showBanner !== 'undefined') {
+                sdk.showBanner();
+            }	
+            showBbg =false;
+            beforeBG.style.display = 'none';
+            window.removeEventListener("click",onClick);
+            init();
+        }
+        </script><div id="imaContainer" style="position: absolute; z-index: 10000; top: 0px; left: 0px; width: 100%; height: 100%; background-color: rgb(0, 0, 0); visibility: hidden; overflow: hidden;"><video id="imaVideo"></video></div><div id="imaContainer_new" style="position: absolute; z-index: 10000; top: 0px; left: 0px; width: 100%; height: 100%; background-color: rgb(0, 0, 0); visibility: hidden; overflow: hidden;"><video2 id="imaVideo2"></video2></div></body></html>
