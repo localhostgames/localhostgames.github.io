@@ -1,5 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap");
 
+#games a{
+  color: #1b1b1b00;
+}
+
 body {
   background-color: #1b1b1b;
   font-family: "Montserrat", sans-serif;
@@ -40,7 +44,7 @@ nav h1 {
 nav a {
   background-color: rgba(255, 255, 255, 0.034);
   border: none;
-  color: white;
+  color: rgb(255, 255, 255);
   padding: 20px;
   text-align: center;
   text-decoration: none;
@@ -280,7 +284,7 @@ body {
 .featured a {
   display: inline-block;
   position: relative;
-  color: #2c7ffc;
+  color: #ffffff;
   text-decoration: none;
 }
 

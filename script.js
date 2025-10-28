@@ -69,12 +69,15 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 messages = [
-  "Rebranded and REFRESHED!",
-  "Back in black.",
-  "Out with the old, in with the new.",
-  "dude i bought this for 25 bucks haha.",
-  "BRANDONX45 ON TOP HAHA",
-  "made and built in CORPUS CHRISTI!"
+  "Welcome to LOCALHOSTGAMES!",
+  "haha stupid blockers",
+  "did you know that lightspeed is slow?",
+  "so you see",
+  "retro bowl is the best game here!",
+  "lightspeed cant catch this!",
+  "made and built in CORPUS CHRISTI!",
+  "did you know? you can request games to be added!",
+  "retrobowl was inspired by the classic 8-bit football games!",
 ];
 
 randomMessage();

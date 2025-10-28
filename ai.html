@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GZ9QNWYEGR"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){ dataLayer.push(arguments); }
+      gtag("js", new Date());
+      gtag("config", "G-GZ9QNWYEGR");
+    </script>
+
+    <!-- Google AdSense (include ONCE per page) -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2873906170133209"
+      crossorigin="anonymous"></script>
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>MiniChatGPT UI — demo</title>
+  <style>
+    :root{
+      --bg:#0f1724; --panel:#0b1220; --muted:#9aa4b2; --accent:#10b981; --bubble:#0f1728;
+      --user:#0b84ff;
+      color-scheme: dark;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    html,body{height:100%; margin:0; background:linear-gradient(180deg,#061025 0%, #071627 100%); }
+    .app { max-width:920px; margin:28px auto; border-radius:12px; padding:18px; background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.0)); box-shadow: 0 8px 30px rgba(2,6,23,0.6);}
+    header{display:flex; align-items:center; gap:12px; margin-bottom:14px;}
+    header .logo{width:42px;height:42px;border-radius:8px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--accent),#06b6d4); font-weight:700;color:#001;}
+    header h1{margin:0;font-size:18px;color:#e6eef7}
+    .controls{margin-left:auto; display:flex; gap:8px; align-items:center}
+    .controls button{background:transparent;border:1px solid rgba(255,255,255,0.04); padding:6px 10px;border-radius:8px;color:var(--muted);cursor:pointer}
+    .chat { height:66vh; overflow:auto; padding:12px; border-radius:10px; background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00)); border:1px solid rgba(255,255,255,0.02); }
+    .msg { display:flex; gap:12px; margin:10px 0; align-items:flex-start;}
+    .avatar { width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;color:white;font-weight:700;}
+    .avatar.user{background:var(--user)}
+    .avatar.ai{background:linear-gradient(180deg,#0ea5a4,#06b6d4)}
+    .bubble { max-width:78%; padding:10px 12px; border-radius:10px; color:#e6eef7; background:var(--bubble); line-height:1.45; white-space:pre-wrap; }
+    .bubble.user { background:linear-gradient(90deg, rgba(11,132,255,0.12), rgba(11,132,255,0.08)); color:#d8eeff; margin-left:auto; }
+    .composer { display:flex; gap:8px; margin-top:12px; align-items:end; }
+    textarea { flex:1; min-height:56px; max-height:200px; resize:vertical; padding:12px;border-radius:10px;background:transparent;border:1px solid rgba(255,255,255,0.04); color: #e6eef7; outline:none; }
+    .send { padding:10px 14px; border-radius:10px; background:linear-gradient(90deg,var(--accent), #06b6d4); border:none; color:#002021; font-weight:700; cursor:pointer; }
+    .small { font-size:12px; color:var(--muted) }
+    .system-note{ font-size:13px; color:var(--muted); margin-bottom:8px }
+  </style>
+</head>
+<body>
+    <!-- Top Banner Ad -->
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-2873906170133209"
+         data-ad-slot="4594596645"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+
+  <div class="app" role="application" aria-label="Mini Chat UI">
+    <header>
+      <div class="logo">AI</div>
+      <h1>Mini Chat — demo UI</h1>
+      <div class="controls">
+        <div class="small">Proxy: <span id="proxyUrl">/api/chat</span></div>
+        <button id="clearBtn" title="Clear conversation">Clear</button>
+      </div>
+    </header>
+    <main class="chat" id="chat" aria-live="polite"></main>
+
+    <div class="composer">
+      <textarea id="prompt" placeholder="Type a message and press Enter (Shift+Enter for newline)"></textarea>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <button class="send" id="sendBtn">Send</button>
+      </div>
+    </div>
+  </div>
+
+<script>
+(() => {
+  // CONFIG: change this to your proxy endpoint (CORS must be allowed)
+  const PROXY_URL = 'http://localhost:5000/'; // e.g. 'https://yourdomain.com/api/chat'
+  //document.getElementById('proxyUrl').textContent = PROXY_URL;
+
+  const chat = document.getElementById('chat');
+  const textarea = document.getElementById('prompt');
+  const sendBtn = document.getElementById('sendBtn');
+  const clearBtn = document.getElementById('clearBtn');
+
+  // message history (keeps minimal state on client)
+  let history = []; // {role:'user'|'assistant', content: '...'}
+
+  function appendMessage(role, content, streaming=false) {
+    const container = document.createElement('div');
+    container.className = 'msg';
+    const avatar = document.createElement('div');
+    avatar.className = 'avatar ' + (role === 'user' ? 'user' : 'ai');
+    avatar.textContent = role === 'user' ? 'U' : 'AI';
+    const bubble = document.createElement('div');
+    bubble.className = 'bubble ' + (role === 'user' ? 'user' : 'ai');
+    bubble.textContent = content || (streaming ? '' : '');
+    container.appendChild(avatar);
+    container.appendChild(bubble);
+    chat.appendChild(container);
+    chat.scrollTop = chat.scrollHeight;
+    return {container, bubble};
+  }
+
+  function renderHistory() {
+    chat.innerHTML = '';
+    for (const m of history) appendMessage(m.role, m.content);
+  }
+
+  function pushUserMessage(text) {
+    const msg = {role:'user', content:text};
+    history.push(msg);
+    appendMessage('user', text);
+  }
+
+  function pushAssistantMessageStreaming() {
+    const entry = {role:'assistant', content:''};
+    history.push(entry);
+    return entry;
+  }
+
+  // Send prompt to proxy server. This expects the server to stream back
+  // a text/event-stream (SSE/lines) style or plain chunked text.
+  async function sendToProxy(prompt, {onChunk, onDone, abortSignal} = {}) {
+    // POST body includes recent conversation optionally
+    const payload = {
+      // you may choose to send entire history or just last few messages
+      history: history.slice(-12), // small window
+      prompt,
+      // optional model hint or other options can go here
+    };
+
+    const res = await fetch(PROXY_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(payload),
+      signal: abortSignal
+    });
+
+    if (!res.ok) {
+      const text = await res.text();
+      throw new Error('Proxy error: ' + res.status + ' — ' + text);
+    }
+
+    // If server used text/event-stream we can parse SSE-like chunks.
+    const contentType = res.headers.get('content-type') || '';
+    if (contentType.includes('text/event-stream') || contentType.includes('text/plain')) {
+      // Read stream progressively and emit chunks
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
+      let done = false;
+      while (!done) {
+        const {value, done: rdone} = await reader.read();
+        done = rdone;
+        if (value) {
+          const str = decoder.decode(value, {stream: true});
+          // Server may send SSE lines like: "data: {"delta":"..."}\n\n"
+          // For simplicity, forward raw text chunks to onChunk.
+          onChunk && onChunk(str);
+        }
+      }
+      onDone && onDone();
+    } else {
+      // Fallback: server returned one full JSON
+      const json = await res.json();
+      if (json.error) throw new Error(json.error);
+      onChunk && onChunk(json.text || '');
+      onDone && onDone();
+    }
+  }
+
+  // Manage single inflight request
+  let currentAbortController = null;
+
+  async function handleSend() {
+    const prompt = textarea.value.trim();
+    if (!prompt) return;
+    textarea.value = '';
+    pushUserMessage(prompt);
+
+    // prepare assistant placeholder
+    const assistantEntry = pushAssistantMessageStreaming();
+    const rendered = appendMessage('ai', '', true);
+    const bubble = rendered.bubble;
+
+    // Abort previous if needed
+    if (currentAbortController) {
+      currentAbortController.abort();
+    }
+    currentAbortController = new AbortController();
+    const signal = currentAbortController.signal;
+
+    try {
+      await sendToProxy(prompt, {
+        abortSignal: signal,
+        onChunk(chunk) {
+          // naive incremental text append. Server should send plain text or SSE data chunks.
+          // If SSE 'data: ' framed, remove that.
+          const cleaned = chunk.replace(/^data:\s*/gim, '');
+          assistantEntry.content += cleaned;
+          bubble.textContent = assistantEntry.content;
+          chat.scrollTop = chat.scrollHeight;
+        },
+        onDone() {
+          currentAbortController = null;
+        }
+      });
+    } catch (err) {
+      assistantEntry.content += '\n\n[Error receiving response: ' + err.message + ']';
+      bubble.textContent = assistantEntry.content;
+      currentAbortController = null;
+    }
+  }
+
+  // UI events
+  sendBtn.addEventListener('click', handleSend);
+  clearBtn.addEventListener('click', () => { history = []; renderHistory(); });
+
+  textarea.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleSend();
+    }
+  });
+
+  // Example: seed welcome message
+    renderHistory();
+
+})();
+</script>
+</body>
+</html>
