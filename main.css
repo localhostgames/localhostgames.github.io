@@ -306,3 +306,70 @@ body {
   font-size: 5vw;
   text-shadow: 0 0 100px #2c7ffc;
 }
+
+/* Page Content Wrapper */
+.downloads {
+  margin-top: 10vw; 
+  padding: 2vw 5vw;
+  color: white;
+  text-align: center;
+}
+
+.downloads h1 {
+  font-size: 3vw;
+  margin-bottom: 2vw;
+  font-weight: 800;
+}
+
+/* Game Item Block */
+.game-item {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2vw;
+  border-radius: 1vw;
+  margin: 2vw auto;
+  width: 60%;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: 0.3s;
+}
+
+.game-item:hover {
+  transform: scale(1.02);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.game-item h2 {
+  font-size: 2vw;
+  margin-bottom: 1vw;
+  font-weight: 700;
+}
+
+/* Download Button */
+.download-btn {
+  display: inline-block;
+  background: linear-gradient(0deg, rgba(28,0,0,1) 0%, rgba(255,0,0,1) 86%);
+  padding: 1vw 2vw;
+  border-radius: 0.8vw;
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.2vw;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.download-btn:hover {
+  background: rgb(82, 0, 0);
+  transform: translateY(-3px);
+}
+
+/* Back Button (nav) */
+.back-button {
+  margin-left: auto;
+}
+
+/* Fix nav h1 alignment */
+nav h1 {
+  margin: 0 2vw;
+  font-size: 3vw;
+  font-weight: 800;
+}
