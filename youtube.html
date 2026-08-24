@@ -71,11 +71,11 @@
             </aside>
 
             <section class="video-container">
-                <iframe id="youtubePlayer" src="https://www.youtube.com/embed/M7lc1UVf-VE" title="YouTube video player"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
-                    allowfullscreen>
-                </iframe>
+                <div id="player" data-plyr-provider="youtube" data-plyr-embed-id="M7lc1UVf-VE"></div>
             </section>
+
+            <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
+            <script src="https://cdn.plyr.io/3.7.8/plyr.js"></script>
         </div>
     </main>
 
@@ -85,4 +85,5 @@
 </html>
 </body>
 <script src="script.js"></script>
+
 </html>

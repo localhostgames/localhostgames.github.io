@@ -1,7 +1,6 @@
 const searchForm = document.getElementById("youtubeSearch");
 const searchInput = document.getElementById("searchInput");
 const searchResults = document.getElementById("searchResults");
-const youtubePlayer = document.getElementById("youtubePlayer");
 
 searchForm.addEventListener("submit", async (event) => {
     event.preventDefault();
@@ -32,6 +31,27 @@ searchForm.addEventListener("submit", async (event) => {
     }
 });
 
+// Initialize once, on page load
+const player = new Plyr('#player', {
+    controls: [
+        'play-large', 'play', 'progress', 'current-time',
+        'mute', 'volume', 'settings', 'fullscreen'
+    ]
+});
+
+// When a user picks a video from search results:
+function playVideo(videoId) {
+    player.source = {
+        type: 'video',
+        sources: [
+            {
+                src: videoId,
+                provider: 'youtube',
+            },
+        ],
+    };
+}
+
 function displayResults(videos) {
     searchResults.replaceChildren();
 
@@ -56,10 +76,7 @@ function displayResults(videos) {
         result.append(thumbnail, title);
 
         result.addEventListener("click", () => {
-            youtubePlayer.src =
-                `https://www.youtube.com/embed/${encodeURIComponent(video.videoId)}?autoplay=1`;
-
-            youtubePlayer.title = video.title;
+            playVideo(video.videoId);
         });
 
         searchResults.appendChild(result);
