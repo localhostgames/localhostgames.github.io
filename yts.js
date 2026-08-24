@@ -16,7 +16,7 @@ searchForm.addEventListener("submit", async (event) => {
 
     try {
         const response = await fetch(
-            `http://gangus.serv.gs:8000/api/youtube/search?q=${encodeURIComponent(query)}`
+            `https://atomiccraft.org/api/youtube/search?q=${encodeURIComponent(query)}`
         );
 
         const data = await response.json();
