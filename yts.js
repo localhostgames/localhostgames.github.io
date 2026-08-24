@@ -16,7 +16,7 @@ searchForm.addEventListener("submit", async (event) => {
 
     try {
         const response = await fetch(
-            `https://atomiccraft.org/api/youtube/search?q=${encodeURIComponent(query)}`
+            `https://localhostapi.work/api/youtube/search?q=${encodeURIComponent(query)}`
         );
 
         const data = await response.json();
