@@ -70,15 +70,16 @@
                 <p class="search-message">Search for a video to get started.</p>
             </aside>
 
-            <section class="video-container">
-                <div id="player" data-plyr-provider="youtube" data-plyr-embed-id="M7lc1UVf-VE"></div>
-            </section>
-
-            <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
-            <script src="https://cdn.plyr.io/3.7.8/plyr.js"></script>
+            <div class="video-container">
+                <video id="player" controls playsinline preload="metadata">
+                </video>
+            </div>
         </div>
     </main>
 
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.8.3/plyr.css" />
+
+    <script src="https://cdn.plyr.io/3.8.3/plyr.js"></script>
     <script src="yts.js"></script>
 </body>
 

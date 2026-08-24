@@ -1,6 +1,23 @@
+const API_URL = "https://localhostapi.work";
+
 const searchForm = document.getElementById("youtubeSearch");
 const searchInput = document.getElementById("searchInput");
 const searchResults = document.getElementById("searchResults");
+
+// Initialize the HTML5 video player once.
+const player = new Plyr("#player", {
+    controls: [
+        "play-large",
+        "play",
+        "progress",
+        "current-time",
+        "duration",
+        "mute",
+        "volume",
+        "settings",
+        "fullscreen"
+    ]
+});
 
 searchForm.addEventListener("submit", async (event) => {
     event.preventDefault();
@@ -15,7 +32,7 @@ searchForm.addEventListener("submit", async (event) => {
 
     try {
         const response = await fetch(
-            `https://localhostapi.work/api/youtube/search?q=${encodeURIComponent(query)}`
+            `${API_URL}/api/youtube/search?q=${encodeURIComponent(query)}`
         );
 
         const data = await response.json();
@@ -31,25 +48,30 @@ searchForm.addEventListener("submit", async (event) => {
     }
 });
 
-// Initialize once, on page load
-const player = new Plyr('#player', {
-    controls: [
-        'play-large', 'play', 'progress', 'current-time',
-        'mute', 'volume', 'settings', 'fullscreen'
-    ]
-});
+async function playVideo(video) {
+    const streamUrl =
+        `${API_URL}/api/youtube/play/${encodeURIComponent(video.videoId)}`;
 
-// When a user picks a video from search results:
-function playVideo(videoId) {
-    player.source = {
-        type: 'video',
-        sources: [
-            {
-                src: videoId,
-                provider: 'youtube',
-            },
-        ],
-    };
+    try {
+        player.pause();
+
+        player.source = {
+            type: "video",
+            title: video.title,
+            poster: video.thumbnail,
+            sources: [
+                {
+                    src: streamUrl,
+                    type: "video/mp4"
+                }
+            ]
+        };
+
+        await player.play();
+    } catch (error) {
+        // Browsers commonly block playback until another user interaction.
+        console.error("Video playback failed:", error);
+    }
 }
 
 function displayResults(videos) {
@@ -70,13 +92,19 @@ function displayResults(videos) {
         thumbnail.alt = "";
         thumbnail.loading = "lazy";
 
-        const title = document.createElement("span");
+        const information = document.createElement("span");
+
+        const title = document.createElement("strong");
         title.textContent = video.title;
 
-        result.append(thumbnail, title);
+        const channel = document.createElement("small");
+        channel.textContent = video.channelTitle || "";
+
+        information.append(title, channel);
+        result.append(thumbnail, information);
 
         result.addEventListener("click", () => {
-            playVideo(video.videoId);
+            playVideo(video);
         });
 
         searchResults.appendChild(result);
