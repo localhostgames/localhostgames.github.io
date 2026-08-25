@@ -23,7 +23,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Desmos Calculator</title>
-    <link rel="stylesheet" href="vid.css" />
+    <link rel="stylesheet" href="vid.css">
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.8.4/plyr.css">
 
 </head>
 
@@ -67,23 +68,25 @@
 
         <div class="youtube-content">
             <aside id="searchResults" class="search-results">
-                <p class="search-message">Search for a video to get started.</p>
+                <p class="search-message">
+                    Search for a video to get started.
+                </p>
             </aside>
 
-            <div class="video-container">
-                <video id="player" controls playsinline preload="metadata">
-                </video>
-            </div>
+            <section class="player-panel">
+                <p id="playerMessage"></p>
+
+                <div class="video-container">
+                    <video id="player" controls playsinline preload="metadata">
+                    </video>
+                </div>
+            </section>
         </div>
     </main>
 
-    <link rel="stylesheet" href="https://cdn.plyr.io/3.8.3/plyr.css" />
-
-    <script src="https://cdn.plyr.io/3.8.3/plyr.js"></script>
+    <script src="https://cdn.plyr.io/3.8.4/plyr.js"></script>
+    <script src="script.js"></script>
     <script src="yts.js"></script>
-</body>
-
-</html>
 </body>
 <script src="script.js"></script>
 

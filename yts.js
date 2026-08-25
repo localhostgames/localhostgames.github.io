@@ -48,12 +48,39 @@ searchForm.addEventListener("submit", async (event) => {
     }
 });
 
-async function playVideo(video) {
-    const streamUrl =
-        `${API_URL}/api/youtube/play/${encodeURIComponent(video.videoId)}`;
+let currentVideoUrl = null;
 
+async function playVideo(video) {
     try {
         player.pause();
+
+        showPlayerMessage("Downloading video...");
+
+        const response = await fetch(
+            `${API_URL}/api/youtube/play/${encodeURIComponent(video.videoId)}`
+        );
+
+        if (!response.ok) {
+            let message = "The video could not be downloaded.";
+
+            try {
+                const errorData = await response.json();
+                message = errorData.error || message;
+            } catch {
+                // The response was not JSON.
+            }
+
+            throw new Error(message);
+        }
+
+        const videoBlob = await response.blob();
+
+        // Remove the previous in-browser file.
+        if (currentVideoUrl) {
+            URL.revokeObjectURL(currentVideoUrl);
+        }
+
+        currentVideoUrl = URL.createObjectURL(videoBlob);
 
         player.source = {
             type: "video",
@@ -61,16 +88,24 @@ async function playVideo(video) {
             poster: video.thumbnail,
             sources: [
                 {
-                    src: streamUrl,
-                    type: "video/mp4"
+                    src: currentVideoUrl,
+                    type: videoBlob.type || "video/mp4"
                 }
             ]
         };
 
         await player.play();
     } catch (error) {
-        // Browsers commonly block playback until another user interaction.
-        console.error("Video playback failed:", error);
+        console.error(error);
+        showPlayerMessage(error.message);
+    }
+}
+
+function showPlayerMessage(message) {
+    const playerMessage = document.getElementById("playerMessage");
+
+    if (playerMessage) {
+        playerMessage.textContent = message;
     }
 }
 
