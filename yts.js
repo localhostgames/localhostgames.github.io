@@ -54,7 +54,7 @@ async function playVideo(video) {
     try {
         player.pause();
 
-        showPlayerMessage("Downloading video...");
+        showPlayerMessage("Downloading video (this is slow, be patient; you're getting unblocked youtube)...");
 
         const response = await fetch(
             `${API_URL}/api/youtube/play/${encodeURIComponent(video.videoId)}`
