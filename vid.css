@@ -871,3 +871,198 @@ nav {
         width: 100%;
     }
 }
+
+:root {
+    --nav-height: max(7vw, 70px);
+}
+
+html {
+    width: 100%;
+    min-height: 100%;
+    margin: 0;
+}
+
+body {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+    min-height: 100dvh;
+    height: auto;
+    margin: 0;
+    padding: var(--nav-height) 0 0;
+
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    background: #111;
+}
+
+/* Navigation stays fixed */
+nav {
+    box-sizing: border-box;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+
+    width: 100%;
+    height: var(--nav-height);
+    margin: 0;
+    z-index: 100;
+}
+
+/* Featured tracker uses its natural height */
+.featured {
+    box-sizing: border-box;
+    position: static;
+    flex: none;
+
+    width: 100%;
+    margin: 0;
+    padding: 14px 20px;
+}
+
+/* Ad receives its own layout space */
+.ad-banner {
+    box-sizing: border-box;
+    position: relative;
+    flex: none;
+
+    width: min(1200px, calc(100% - 32px));
+    min-height: 90px;
+    margin: 0 auto 14px;
+    padding: 4px;
+
+    overflow: hidden;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.025);
+}
+
+.ad-banner::before {
+    content: "ADVERTISEMENT";
+    display: block;
+
+    margin-bottom: 3px;
+    color: #777;
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    text-align: center;
+}
+
+.ad-banner .adsbygoogle {
+    width: 100%;
+    min-height: 70px;
+}
+
+/* YouTube app is no longer fixed over other elements */
+.youtube-app {
+    box-sizing: border-box;
+    position: static;
+
+    display: flex;
+    flex: 1 0 600px;
+    flex-direction: column;
+
+    width: 100%;
+    height: auto;
+    min-width: 0;
+    min-height: 600px;
+    padding: 0;
+
+    overflow: hidden;
+}
+
+/* Search bar does not shrink */
+.youtube-search {
+    box-sizing: border-box;
+    flex: none;
+    width: 100%;
+}
+
+/* Player/results fill the rest of the app */
+.youtube-content {
+    display: grid;
+    grid-template-columns: 340px minmax(0, 1fr);
+
+    flex: 1;
+    width: 100%;
+    min-width: 0;
+    min-height: 0;
+
+    overflow: hidden;
+}
+
+.search-results {
+    min-width: 0;
+    min-height: 0;
+    overflow-y: auto;
+}
+
+.player-panel {
+    display: flex;
+    flex-direction: column;
+
+    min-width: 0;
+    min-height: 0;
+    overflow: hidden;
+    background: black;
+}
+
+.video-container {
+    position: relative;
+    flex: 1;
+
+    width: 100%;
+    min-width: 0;
+    min-height: 400px;
+
+    overflow: hidden;
+    background: black;
+}
+
+.video-container .plyr {
+    width: 100%;
+    height: 100%;
+}
+
+.video-container .plyr__video-wrapper {
+    height: 100%;
+}
+
+.video-container video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+@media (max-width: 900px) {
+    .featured {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .youtube-app {
+        flex-basis: 750px;
+        min-height: 750px;
+    }
+
+    .youtube-content {
+        display: flex;
+        flex-direction: column-reverse;
+    }
+
+    .search-results {
+        flex: 0 0 300px;
+        width: 100%;
+    }
+
+    .player-panel {
+        flex: 1;
+    }
+
+    .video-container {
+        min-height: 300px;
+    }
+}
