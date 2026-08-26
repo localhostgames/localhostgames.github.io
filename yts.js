@@ -19,6 +19,8 @@ const player = new Plyr("#player", {
     ]
 });
 
+loadPopularSearches();
+
 searchForm.addEventListener("submit", async (event) => {
     event.preventDefault();
 
@@ -42,11 +44,84 @@ searchForm.addEventListener("submit", async (event) => {
         }
 
         displayResults(data.items);
+        loadPopularSearches();
     } catch (error) {
         showMessage(error.message);
         console.error(error);
     }
 });
+
+const popularSearches =
+    document.getElementById("popularSearches");
+
+async function loadPopularSearches() {
+    if (!popularSearches) {
+        return;
+    }
+
+    try {
+        const response = await fetch(
+            `${API_URL}/api/youtube/popular-searches?limit=8`
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(
+                data.error || "Could not load trends."
+            );
+        }
+
+        displayPopularSearches(data.items);
+    } catch (error) {
+        console.error(error);
+
+        popularSearches.textContent =
+            "Trends are currently unavailable.";
+    }
+}
+
+
+function displayPopularSearches(searches) {
+    popularSearches.replaceChildren();
+
+    if (!searches || searches.length === 0) {
+        const emptyMessage = document.createElement("span");
+        emptyMessage.className = "popular-loading";
+        emptyMessage.textContent = "No searches yet.";
+
+        popularSearches.appendChild(emptyMessage);
+        return;
+    }
+
+    searches.forEach((search, index) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "popular-search";
+
+        const ranking = document.createElement("span");
+        ranking.className = "popular-ranking";
+        ranking.textContent = `#${index + 1}`;
+
+        const query = document.createElement("span");
+        query.className = "popular-query";
+        query.textContent = search.query;
+
+        const count = document.createElement("span");
+        count.className = "popular-count";
+        count.textContent =
+            `${search.count} ${search.count === 1 ? "search" : "searches"}`;
+
+        button.append(ranking, query, count);
+
+        button.addEventListener("click", () => {
+            searchInput.value = search.query;
+            searchForm.requestSubmit();
+        });
+
+        popularSearches.appendChild(button);
+    });
+}
 
 let currentVideoUrl = null;
 
