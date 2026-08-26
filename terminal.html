@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GZ9QNWYEGR"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag("js", new Date());
+
+        gtag("config", "G-GZ9QNWYEGR");
+    </script>
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2873906170133209"
+        crossorigin="anonymous"></script>
+
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Desmos Calculator</title>
+    <link rel="stylesheet" href="vid.css">
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.8.4/plyr.css">
+
+</head>
+
+<body>
+
+
+    <!-- TOS Popup -->
+    <div id="tosPopup" class="popup">
+        <div class="popup-content">
+            <span class="close-btn">&times;</span>
+            <h2>Terms of Use</h2>
+            <p>
+                By accepting these terms, you acknowledge that you are solely responsible for any transgression or
+                unlawful use of this website and confirm that your usage is permitted. DidgeCot (referred to as
+                "I/We/Us") is not liable for any misuse or disregard of the proper use of this site. If you agree with
+                these terms, please press the: "I Accept" button.
+            </p>
+            <button id="acceptBtn">I Accept</button>
+        </div>
+    </div>
+
+    <nav>
+        <h1>LOCALHOSTGAMES</h1>
+        <h3>By BrandonX45</h3>
+        <a href="youtube.html">YOUTUBE</a>
+        <a href="rarch/index.html">EMULATOR</a>
+        <a href="games.html">PC GAMES</a>
+        <a href="index.html">WEB GAMES</a>
+        <a href="terminal.html">TERMINAL</a>
+    </nav>
+
+    <div class="featured">
+        <div class="featured-heading">
+            <h1>
+                JS CONSOLE (for mobile devices)
+            </h1>
+        </div>
+    </div>
+
+    <main class="terminal-app">
+        <section class="terminal-window">
+            <header class="terminal-header">
+                <div class="terminal-title">
+                    <span class="terminal-icon">&gt;_</span>
+
+                    <div>
+                        <h2>JavaScript Console</h2>
+                        <p>Sandboxed browser interpreter</p>
+                    </div>
+                </div>
+
+                <div class="terminal-actions">
+                    <span id="terminalStatus" class="terminal-status">
+                        Ready
+                    </span>
+
+                    <button id="clearConsole" class="terminal-button secondary" type="button">
+                        Clear
+                    </button>
+
+                    <button id="runCode" class="terminal-button" type="button">
+                        Run
+                    </button>
+                </div>
+            </header>
+
+            <div id="consoleOutput" class="console-output" aria-live="polite">
+                <div class="console-line system">
+                    <span class="console-prefix">●</span>
+                    JavaScript sandbox ready.
+                </div>
+
+                <div class="console-line system">
+                    <span class="console-prefix">●</span>
+                    Press Ctrl + Enter to run your code.
+                </div>
+            </div>
+
+            <div class="console-input-area">
+                <div class="console-input-heading">
+                    <span>JavaScript</span>
+                    <span>Ctrl + Enter to run</span>
+                </div>
+
+                <div class="console-editor">
+                    <span class="editor-prompt">&gt;</span>
+
+                    <textarea id="consoleInput" placeholder="console.log('Hello world!');" spellcheck="false"
+                        autocomplete="off"></textarea>
+
+                    <div id="autocompleteMenu" class="autocomplete-menu" role="listbox" hidden>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </section>
+    </main>
+
+
+
+    <script src="script.js"></script>
+    <script src="terminal.js"></script>
+</body>
+
+</html>
