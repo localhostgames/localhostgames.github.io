@@ -1438,3 +1438,9 @@ nav {
     font-size: 9px;
     text-transform: uppercase;
 }
+
+nav a.active {
+    color: white;
+    background: rgba(255, 75, 75, 0.2);
+    border-bottom: 2px solid #ff4b4b;
+}

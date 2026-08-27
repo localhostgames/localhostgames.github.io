@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script
+        async
+        src="https://www.googletagmanager.com/gtag/js?id=G-GZ9QNWYEGR">
+    </script>
+
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag("js", new Date());
+        gtag("config", "G-GZ9QNWYEGR");
+    </script>
+
+    <script
+        async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2873906170133209"
+        crossorigin="anonymous">
+    </script>
+
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Chatroom | LOCALHOSTGAMES</title>
+
+    <link rel="stylesheet" href="chatroom.css">
+    <link rel="stylesheet" href="vid.css">
+</head>
+
+<body>
+    <!-- Terms popup -->
+    <div id="tosPopup" class="popup">
+        <div class="popup-content">
+            <span class="close-btn">&times;</span>
+
+            <h2>Terms of Use</h2>
+
+            <p>
+                By accepting these terms, you acknowledge that you are
+                solely responsible for your use of this website and
+                confirm that your usage is permitted.
+            </p>
+
+            <button id="acceptBtn">I Accept</button>
+        </div>
+    </div>
+
+    <!-- Shared navigation -->
+    <div id="sharedNav"></div>
+
+    <header class="chat-featured">
+        <div>
+            <p class="chat-eyebrow">COMMUNITY</p>
+            <h1>LIVE CHATROOM</h1>
+            <p class="chat-description">
+                Talk with everyone currently using LOCALHOSTGAMES.
+            </p>
+        </div>
+
+        <div class="chat-connection">
+            <span id="connectionDot" class="connection-dot"></span>
+            <span id="connectionText">Connecting...</span>
+        </div>
+    </header>
+
+    <main class="chat-app">
+        <section class="chat-window">
+            <header class="chat-header">
+                <div class="room-information">
+                    <span class="room-icon">#</span>
+
+                    <div>
+                        <h2>General</h2>
+                        <p>Public community chat</p>
+                    </div>
+                </div>
+
+                <div class="online-counter">
+                    <span class="online-dot"></span>
+                    <span id="onlineCount">0 online</span>
+                </div>
+            </header>
+
+            <div
+                id="messages"
+                class="messages"
+                aria-live="polite">
+
+                <div id="loadingMessages" class="chat-notice">
+                    Loading messages...
+                </div>
+            </div>
+
+            <div id="typingIndicator" class="typing-indicator"></div>
+
+            <form id="messageForm" class="message-form">
+                <div class="username-field">
+                    <label for="username">NAME</label>
+
+                    <input
+                        id="username"
+                        type="text"
+                        maxlength="20"
+                        placeholder="Guest"
+                        autocomplete="nickname">
+                </div>
+
+                <div class="message-field">
+                    <label for="messageInput">MESSAGE</label>
+
+                    <div class="message-input-row">
+                        <textarea
+                            id="messageInput"
+                            maxlength="500"
+                            rows="1"
+                            placeholder="Message #general"
+                            required></textarea>
+
+                        <button
+                            id="sendButton"
+                            type="submit"
+                            aria-label="Send message">
+                            <span>SEND</span>
+                            <span class="send-arrow">➤</span>
+                        </button>
+                    </div>
+
+                    <div class="message-details">
+                        <span>Press Enter to send</span>
+                        <span id="characterCount">0 / 500</span>
+                    </div>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <script src="nav.js"></script>
+    <script src="script.js"></script>
+
+    <script
+        type="module"
+        src="chatroom.js">
+    </script>
+</body>
+
+</html>
