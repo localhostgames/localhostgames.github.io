@@ -12,60 +12,88 @@ input.addEventListener("input", () => {
   });
 });
 
-document.addEventListener("resize",function(){
+document.addEventListener("resize", function () {
   console.log("reloaded!")
 })
 
-// script.js
+console.log(window.location.href);
+
+function openInBlank(url) {
+  const win = window.open('about:blank', '_blank');
+  const iframe = win.document.createElement('iframe');
+  iframe.style.width = '100%';
+  iframe.style.height = '100%';
+  iframe.style.border = 'none';
+  iframe.src = url;
+  win.document.body.appendChild(iframe);
+}
+
+
 document.addEventListener("DOMContentLoaded", function () {
-  var passwordBackground = document.getElementById("passwordMain");
-  var passwordInput = document.getElementById("passwordInput");
-  var passwordSubmit = document.getElementById("passwordSubmitButton");
+  const passwordBackground =
+    document.getElementById("passwordMain");
 
-  var tosPopup = document.getElementById("tosPopup");
-  var closeBtn = document.querySelector(".close-btn");
-  var acceptBtn = document.getElementById("acceptBtn");
+  const passwordInput =
+    document.getElementById("passwordInput");
 
-  const today = new Date();
-  const dayOfMonth = today.getDate();
+  const passwordSubmit =
+    document.getElementById("passwordSubmitButton");
 
-  passwordBackground.style.display = "flex";  
+  const tosPopup =
+    document.getElementById("tosPopup");
 
-  passwordSubmit.onclick = function () {
-    if (passwordInput.value == "Testing Password" + dayOfMonth.toString())
-    {
-      passwordBackground.style.opacity = '0';
-  
-      passwordInput.value = "";
+  const closeBtn =
+    tosPopup?.querySelector(".close-btn");
 
-      // Optionally, after the fade-out completes, hide the element
-      setTimeout(() => {
-        passwordBackground.style.display = 'none';
-      }, 500); // Match the transition duration (0.5s)
-    }
+  const acceptBtn =
+    document.getElementById("acceptBtn");
 
-    
-  };
 
-  // Show the popup when the page loads
-  tosPopup.style.display = "flex";
+  // Only initialize the password screen if this page has one
+  if (
+    passwordBackground &&
+    passwordInput &&
+    passwordSubmit
+  ) {
+    const dayOfMonth = new Date().getDate();
 
-  // Close the popup when the 'X' is clicked
-  closeBtn.onclick = function () {
-    tosPopup.style.display = "none";
-  };
+    passwordBackground.style.display = "flex";
 
-  // Close the popup when 'I Accept' is clicked
-  acceptBtn.onclick = function () {
-    tosPopup.style.display = "none";
-  };
+    passwordSubmit.addEventListener("click", function () {
+      const correctPassword =
+        `Testing Password${dayOfMonth}`;
 
-  // Close the popup if the user clicks outside the popup content
-  window.onclick = function (event) {
-    if (event.target == tosPopup) {
+      if (passwordInput.value === correctPassword) {
+        passwordBackground.style.opacity = "0";
+        passwordInput.value = "";
+
+        setTimeout(() => {
+          passwordBackground.style.display = "none";
+        }, 500);
+      }
+    });
+  }
+
+
+  // Only initialize the TOS popup if this page has one
+  if (tosPopup) {
+    tosPopup.style.display = "flex";
+
+    closeBtn?.addEventListener("click", function () {
       tosPopup.style.display = "none";
-    }
-  };
+    });
+
+    acceptBtn?.addEventListener("click", function () {
+      tosPopup.style.display = "none";
+    });
+
+    tosPopup.addEventListener("click", function (event) {
+      if (event.target === tosPopup) {
+        tosPopup.style.display = "none";
+        openInBlank(window.location.href);
+      }
+    });
+  }
 });
 
 messages = [
