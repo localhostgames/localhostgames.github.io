@@ -18,13 +18,20 @@ document.addEventListener("resize", function () {
 
 console.log(window.location.href);
 
-function openInBlank(url) {
+function isInsideIframe() {
+    return window.self !== window.top;
+}
+
+function openInBlank() {
+  if (isInsideIframe())
+    return;
+
   const win = window.open('about:blank', '_blank');
   const iframe = win.document.createElement('iframe');
   iframe.style.width = '100%';
   iframe.style.height = '100%';
   iframe.style.border = 'none';
-  iframe.src = url;
+  iframe.src = "https://localhostgames.github.io";
   win.document.body.appendChild(iframe);
 }
 
@@ -85,12 +92,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
     acceptBtn?.addEventListener("click", function () {
       tosPopup.style.display = "none";
+      openInBlank();
     });
 
     tosPopup.addEventListener("click", function (event) {
       if (event.target === tosPopup) {
+        openInBlank();
         tosPopup.style.display = "none";
-        openInBlank(window.location.href);
       }
     });
   }
