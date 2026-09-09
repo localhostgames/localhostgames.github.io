@@ -23,6 +23,8 @@ function isInsideIframe() {
 }
 
 function openInBlank() {
+  if (true)
+    return;
   if (isInsideIframe())
     return;
 
