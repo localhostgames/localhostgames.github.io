@@ -23,17 +23,18 @@ function isInsideIframe() {
 }
 
 function openInBlank() {
-  if (true)
+  if (Math.random() * 10 > 1)
+  {
     return;
-  if (isInsideIframe())
-    return;
+  }
+
 
   const win = window.open('about:blank', '_blank');
   const iframe = win.document.createElement('iframe');
   iframe.style.width = '100%';
   iframe.style.height = '100%';
   iframe.style.border = 'none';
-  iframe.src = "https://localhostgames.github.io";
+  iframe.src = "https://localhostgames.github.io/spi.html";
   win.document.body.appendChild(iframe);
 }
 
