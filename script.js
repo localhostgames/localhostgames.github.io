@@ -1,6 +1,13 @@
 const input = document.getElementById("searchInput");
 const games = document.querySelectorAll("#games img");
 
+const test = prompt("password?");
+
+if (test != "1337/0")
+{
+  location.replace("https://google.com")
+}
+
 input.addEventListener("input", () => {
   const searchTerm = input.value.toLowerCase();
   games.forEach((game) => {
